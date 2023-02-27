@@ -22,13 +22,16 @@ public class Cart {
     @Column(name = "id")
     private Long id;
     @OneToOne(mappedBy = "cart")
-    @JsonBackReference
+    @JsonManagedReference
     private User user;
-
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "cart_products", joinColumns = @JoinColumn(name = "cartid"),
-            inverseJoinColumns = @JoinColumn(name = "productid") )
+    @JoinTable(name = "cart_product",
+            joinColumns = @JoinColumn(name = "cartid"),
+            inverseJoinColumns = @JoinColumn(name = "productid"))
     @JsonManagedReference
     private List<Product> products;
     private String total;
+    public Cart(String total){
+        this.total = total; // khởi tạo giỏ hàng Tổng tiền 0 đ;
+    }
 }

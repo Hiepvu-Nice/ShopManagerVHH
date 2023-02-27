@@ -1,9 +1,8 @@
 package com.startup.ShopManager.Enum;
 
 public enum Status {
-    ENABLE(1),DISABLE(0);
-
-    Status(int i) {
+    ENABLE(0),DISABLE(1);
+    Status(int i){
 
     }
 }

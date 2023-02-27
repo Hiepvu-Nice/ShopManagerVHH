@@ -1,6 +1,5 @@
 package com.startup.ShopManager.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +16,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "products")
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,43 +24,32 @@ public class Product {
     private Long id;
     @Column(name = "productname")
     private String productName;
-    @Column(name = "firstday")
-    private LocalDate firstDate; // ngày nhập
+    @Column(name = "firstDay")
+    private LocalDate firstDate;
     @Column(name = "count")
-    private String count; // giá nhập
+    private String count;
     @Column(name = "introduce")
-    private String introduce; // giới thiệu
+    private String introduce;
     @Column(name = "vote")
     private Long vote;
-    //private String comment;
     @Column(name = "discount")
-    private String discount; // giảm giá
+    private String discount;
     @ManyToMany(mappedBy = "products")
-    @JsonBackReference
-    private Set<Cart> cart; // không cho trùng giỏ hàng
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Cart> carts;
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Comment> comments;
     @ManyToOne
-    @JoinColumn(name = "categoryid", referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "categoryid",referencedColumnName = "id")
+    @JsonManagedReference
     private Category category;
-
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Image> images;
-
     @ManyToOne
-    @JoinColumn(name = "billid", referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "billid",referencedColumnName = "id")
+    @JsonManagedReference
     private Bill bill;
-
-    public Product(String productName,LocalDate firstDate,String count,String introduce){
-        this.productName = productName;
-        this.firstDate = firstDate;
-        this.count = count;
-        this.introduce = introduce;
-    }
-
 
 }

@@ -1,7 +1,6 @@
 package com.startup.ShopManager.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,19 +14,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "voicher")
 public class Voicher {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "voichername")
+    @Column(name = "voicherName")
     private String voicherName;
-    @Column(name = "reductionrate")
-    private String reductionRate; // phần trăm giảm
-    @Column(name = "reductionprice")
-    private String reductionPrice; // giảm trực tiếp vào tiền
+    @Column(name = "reductionPrice")
+    private String reductionPrice;
     @ManyToOne
-    @JoinColumn(name = "userdeitalid", referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "userDeitalid",referencedColumnName = "id")
+    @JsonManagedReference
     private UserDeital userDeital;
 }

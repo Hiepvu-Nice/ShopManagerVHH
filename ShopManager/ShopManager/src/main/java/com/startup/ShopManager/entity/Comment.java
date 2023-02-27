@@ -1,6 +1,5 @@
 package com.startup.ShopManager.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,13 +21,13 @@ public class Comment {
     @Column(name = "text")
     private String text;
     @Column(name = "vote")
-    private Long vote;
+    private Long Vote;
     @ManyToOne
-    @JoinColumn(name = "productid", referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "productid",referencedColumnName = "id")
+    @JsonManagedReference
     private Product product;
     @ManyToOne
-    @JoinColumn(name = "userid", referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "userid",referencedColumnName = "id")
+    @JsonManagedReference
     private User user;
 }
